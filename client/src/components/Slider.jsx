@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { sliderItems } from "../data";
 import { mobile } from "../responsive";
@@ -54,6 +54,7 @@ const ImgContainer = styled.div`
 
 const Image = styled.img`
   height: 80%;
+  padding: 50px;
 `;
 
 const InfoContainer = styled.div`
@@ -88,6 +89,16 @@ const Slider = () => {
       setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
     }
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSlideIndex((prevIndex) =>
+        prevIndex < sliderItems.length - 1 ? prevIndex + 1 : 0
+      );
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <Container>
