@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { mobile } from "../responsive";
 import { Avatar } from "@material-ui/core";
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
+// import { PersonAddOutlined } from "@material-ui/icons";
 import ViewHeadlineIcon from '@material-ui/icons/ViewHeadline';
 import { Link } from "react-router-dom"
 
@@ -18,8 +19,10 @@ const Friend = styled.div`
   padding: 20px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   ${mobile({ flexDirection: "column" })}
 `;
+
 
 const FriendDetail = styled.div`
   flex: 2;
@@ -33,7 +36,7 @@ const Details = styled.div`
   justify-content: space-around;
 `
 
-const ProductColor = styled.div`
+const FriendColor = styled.div`
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -67,64 +70,72 @@ const AddFriend = styled.div`
 `;
 
 const Friends = () =>{
-    const [users,setUsers] = useState([])
+  const [users,setUsers] = useState([])
 
-    //get all users
-    useEffect(() => {
-        const getUsers = async () => {
-            try{
-                const res = await publicRequest.get("/users" );
-                setUsers(res.data);
-            } catch(err) {
-                console.log(err)
-            }};
+  //get all users
+  useEffect(() => {
+      const getUsers = async () => {
+          try{
+              const res = await publicRequest.get("/users" );
+              setUsers(res.data);
+          } catch(err) {
+              console.log(err)
+          }};
 
-        getUsers();
-    } , []);
+      getUsers();
+  } , []);
 
-    console.log(users)
-    return (
-        <>
-            <Navbar/>
-            <FriendContainer>
-                {users.map(user => (
-                    <Friend>
-                    <FriendDetail>
-                    {/*<Image src={product.img} />*/}
-                    <Avatar/>
-                    <Details>
-                        <div>
-                        <b>Product:</b> {user.firstname}
-                        </div>
-                        {/*<ProductColor color={product.color} />*/}
-                        <div>
-                        <b>Size:</b> {user.lastname}
-                        </div>
-                    </Details>
-                    </FriendDetail>
-                    <WishDetail>
-                    <WishContainer>
-                      <Link to={`/profile/${user._id}/wishlist`}>
-                        <ViewWishes>
-                            View wishlist
-                            <ViewHeadlineIcon/>
-                        </ViewWishes>
-                      </Link>
-                    </WishContainer>
-                    <AddFriend>
-                        <PersonAddIcon/>
-                    </AddFriend>
-                    </WishDetail>
-                </Friend>
-                ))}
-            </FriendContainer>
-        </>
-    )
-
-
+  // add friend
+  const handleAddFriend = async (userId) => {
+    try {
+      // Make a request to add the friend
+      const response = await publicRequest.post(`/users/${userId}/friends`, {
+        friendId: userId, //add the user as a friend by using their own ID
+      });
+      const updatedUser = response.data;
+      console.log(updatedUser); // Log the updated user to the console
     
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-
-}
+  console.log(users)
+  return (
+    <>
+      <Navbar />
+      <FriendContainer>
+        {users.map((user) => (
+          <Friend key={user._id}>
+            <FriendDetail>
+              <Avatar />
+              <Details>
+                <div>
+                  <b>Product:</b> {user.firstname}
+                </div>
+                <div>
+                  <b>Size:</b> {user.lastname}
+                </div>
+              </Details>
+            </FriendDetail>
+            <WishDetail>
+              <WishContainer>
+                <Link to={`/profile/${user._id}/wishlist`}>
+                  <ViewWishes>
+                    View wishlist
+                    <ViewHeadlineIcon />
+                  </ViewWishes>
+                </Link>
+              </WishContainer>
+              <AddFriend onClick={() => handleAddFriend(user._id)}>
+                <PersonAddIcon />
+              </AddFriend>
+            </WishDetail>
+          </Friend>
+        ))}
+      </FriendContainer>
+    </>
+  );  
+}  
 
 export default Friends;

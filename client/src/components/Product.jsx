@@ -1,10 +1,16 @@
+import { useState } from "react";
 import {
   FavoriteBorderOutlined,
+  FavoriteOutlined,
   SearchOutlined,
   ShoppingCartOutlined,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+// import axios from "axios";
+import { useSelector } from "react-redux";
+import { publicRequest } from "../requestMethods";
+
 
 const Info = styled.div`
   opacity: 0;
@@ -33,7 +39,7 @@ const Container = styled.div`
   background-color: #f5fbfd;
   position: relative;
 
-  &:hover ${Info}{
+  &:hover ${Info} {
     opacity: 1;
   }
 `;
@@ -68,6 +74,42 @@ const Icon = styled.div`
 `;
 
 const Product = ({ item }) => {
+  const [isWishlist, setIsWishlist] = useState(false);
+  // const [user,setUser] = useState([])
+  const user = useSelector((state) => state.user.currentUser);
+
+  console.log("HI:" +user._id)
+
+  // //get all the current user
+  // useEffect(() => {
+  //   const getUsers = async () => {
+  //       try{
+  //           const res = await publicRequest.get("/users" );
+  //           setUsers(res.data);
+  //       } catch(err) {
+  //           console.log(err)
+  //       }};
+
+  //   getUsers();
+  // } , []);
+
+  // console.log(users)
+
+  // Function to handle adding/removing from wishlist
+  const handleWishlistClick = async () => {
+    try {
+      // Make API call to update user's wishlist
+      const response = await publicRequest.post(`/users/${user._id}/wishlist`, {
+        productId: item._id,
+      });
+      const updatedUser = response.data;
+      console.log(updatedUser); // Log the updated user to the console
+      setIsWishlist(!isWishlist); // Toggle the wishlist state
+    } catch (error) {
+      console.error(error); // Log any errors to the console
+    }
+  };
+
   return (
     <Container>
       <Circle />
@@ -78,11 +120,15 @@ const Product = ({ item }) => {
         </Icon>
         <Icon>
           <Link to={`/product/${item._id}`}>
-          <SearchOutlined />
+            <SearchOutlined />
           </Link>
         </Icon>
-        <Icon>
-          <FavoriteBorderOutlined />
+        <Icon onClick={handleWishlistClick}>
+          {isWishlist ? (
+            <FavoriteOutlined />
+          ) : (
+            <FavoriteBorderOutlined />
+          )}
         </Icon>
       </Info>
     </Container>

@@ -95,4 +95,40 @@ router.get("/:id/wishlist", async (req, res) => {
   }
 });
 
+// ADD PRODUCT TO WISHLIST
+router.post("/:id/wishlist", async (req, res) => {
+  const productId = req.body.productId; // Assuming the product ID is sent in the request body
+  try {
+    const user = await User.findById(req.params.id);
+    user.wishlist.push(productId);
+    const updatedUser = await user.save();
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// ADD FRIEND TO FRIENDS LIST
+router.post("/:id/friends", async (req, res) => {
+  const friendId = req.body.friendId; // Assuming the friend's ID is sent in the request body
+  try {
+    const user = await User.findById(req.params.id);
+    user.friends.push(friendId);
+    const updatedUser = await user.save();
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// GET USER FRIENDS
+router.get("/:id/friends", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.status(200).json(user.friends);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;
