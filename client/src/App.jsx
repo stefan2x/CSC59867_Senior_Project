@@ -17,13 +17,13 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/products/:category" element={<ProductList />} />
-        <Route path="/product/:id" element={<Product />} />
+        {/*<Route path="/products/:category" element={<ProductList />} />
+        <Route path="/product/:id" element={<Product />} />*/}
         <Route path="/cart" element={<Cart />} />
         <Route path="/success" element={<Success />} />
         <Route path="/friends" element={<Friends />} />
-        <Route path="/explore" element={<Explore />} />
-        <Route path="/explore/:category" element={<Category />} />
+        <Route path="/products" element={<Explore />} />
+        <Route path="/products/:category" element={<ProductList />} />
         <Route
           path="/login"
           element={user ? <Navigate to="/" replace /> : <Login />}
