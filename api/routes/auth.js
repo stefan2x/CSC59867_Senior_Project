@@ -15,6 +15,8 @@ router.post("/register", async (req, res) => {
       req.body.password,
       process.env.PASS_SEC
     ).toString(),
+    friends: [],
+    wishlist: [],
   });
 
   try {

@@ -18,7 +18,6 @@ const Home = () => {
       <Slider />
       <Categories />
       <FeaturedProducts />
-      <Products/>
       <Newsletter/>
       <Footer/>
     </div>

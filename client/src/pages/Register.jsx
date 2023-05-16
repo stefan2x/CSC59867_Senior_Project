@@ -73,6 +73,8 @@ const Register = () => {
         email,
         password,
       });
+      
+      window.location.href = "/login"; // Redirects to the home page
       console.log(res.data);
     } catch (err) {
       console.log(err);

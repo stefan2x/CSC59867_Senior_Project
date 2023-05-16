@@ -103,7 +103,7 @@ const Navbar = () => {
         <Right>
           {currentUser ? (
             <>
-              <LinkWrapper to="/explore">
+              <LinkWrapper to="/products">
                 <MenuItem>EXPLORE</MenuItem>
               </LinkWrapper>
               <LinkWrapper to="/friends">

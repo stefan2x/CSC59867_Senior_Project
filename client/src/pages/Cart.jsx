@@ -139,7 +139,7 @@ const Cart = () => {
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <TopButton>LOOK FOR MORE WISHES</TopButton>
+          <TopButton>*IMG* First Last</TopButton>
           <TopTexts>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
