@@ -1,5 +1,6 @@
 import { Badge } from "@material-ui/core";
 import { Search, ShoppingCartOutlined } from "@material-ui/icons";
+import { Redeem } from "@material-ui/icons";
 import React from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
@@ -89,18 +90,29 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <Language>EN</Language>
           <SearchContainer>
             <Input placeholder="Search" />
             <Search style={{ color: "gray", fontSize: 16 }} />
           </SearchContainer>
         </Left>
         <Center>
+        <LinkWrapper to="/">
           <Logo>Wishlist</Logo>
+        </LinkWrapper>
         </Center>
         <Right>
           {currentUser ? (
-              <LinkWrapper to="/"><MenuItem onClick={handleLogout}>LOG OUT</MenuItem></LinkWrapper>
+            <>
+              <LinkWrapper to="/explore">
+                <MenuItem>EXPLORE</MenuItem>
+              </LinkWrapper>
+              <LinkWrapper to="/friends">
+                <MenuItem>FRIENDS</MenuItem>
+              </LinkWrapper>
+              <LinkWrapper to="/">
+                <MenuItem onClick={handleLogout}>LOG OUT</MenuItem>
+              </LinkWrapper>
+            </>
             ) : (
               <>
                 <LinkWrapper to="/register">
@@ -109,12 +121,13 @@ const Navbar = () => {
                 <LinkWrapper to="/login">
                   <MenuItem>SIGN IN</MenuItem>
                 </LinkWrapper>
+                
               </>
             )}
           <Link to="/cart">
           <MenuItem>
             <Badge badgeContent={quantity} color="primary">
-              <ShoppingCartOutlined />
+              <Redeem/>
             </Badge>
           </MenuItem>
           </Link>
