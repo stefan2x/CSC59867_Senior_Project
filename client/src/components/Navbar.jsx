@@ -103,7 +103,7 @@ const Navbar = () => {
         <Right>
           {currentUser ? (
             <>
-              <LinkWrapper to="/products">
+              <LinkWrapper to="/explore">
                 <MenuItem>EXPLORE</MenuItem>
               </LinkWrapper>
               <LinkWrapper to="/friends">
@@ -112,6 +112,13 @@ const Navbar = () => {
               <LinkWrapper to="/">
                 <MenuItem onClick={handleLogout}>LOG OUT</MenuItem>
               </LinkWrapper>
+              <Link to="/cart">
+              <MenuItem>
+                <Badge badgeContent={quantity} color="primary">
+                  <Redeem/>
+                </Badge>
+              </MenuItem>
+              </Link>
             </>
             ) : (
               <>
@@ -124,13 +131,6 @@ const Navbar = () => {
                 
               </>
             )}
-          <Link to="/cart">
-          <MenuItem>
-            <Badge badgeContent={quantity} color="primary">
-              <Redeem/>
-            </Badge>
-          </MenuItem>
-          </Link>
         </Right>
       </Wrapper>
     </Container>
