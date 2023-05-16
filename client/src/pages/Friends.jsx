@@ -7,6 +7,8 @@ import { mobile } from "../responsive";
 import { Avatar } from "@material-ui/core";
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import ViewHeadlineIcon from '@material-ui/icons/ViewHeadline';
+import { Link } from "react-router-dom"
+
 
 const FriendContainer = styled.div`
   padding: 20px;
@@ -102,10 +104,12 @@ const Friends = () =>{
                     </FriendDetail>
                     <WishDetail>
                     <WishContainer>
+                      <Link to={`/profile/${user._id}/wishlist`}>
                         <ViewWishes>
                             View wishlist
                             <ViewHeadlineIcon/>
                         </ViewWishes>
+                      </Link>
                     </WishContainer>
                     <AddFriend>
                         <PersonAddIcon/>

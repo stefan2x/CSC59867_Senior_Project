@@ -5,7 +5,6 @@ import { Link } from "react-router-dom"
 
 
 const Wrapper = styled.div`
-  grid-area: UserInfo;
   margin: auto;
   width: 95%;
   background-color: grey; 

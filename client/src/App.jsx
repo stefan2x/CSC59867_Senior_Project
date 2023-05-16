@@ -10,6 +10,7 @@ import Success from "./pages/Success";
 import Friends from "./pages/Friends"
 import Explore from "./pages/Explore"
 import Category from "./pages/Category";
+import Profile from "./pages/Profile";
 
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/products" element={<Explore />} />
         <Route path="/products/:category" element={<ProductList />} />
         <Route path="/product/:id" element={<Product />} />
+        <Route path="/profile/:id/wishlist" element={<Profile />} />
         <Route
           path="/login"
           element={user ? <Navigate to="/" replace /> : <Login />}

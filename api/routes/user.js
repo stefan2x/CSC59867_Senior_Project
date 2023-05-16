@@ -85,4 +85,14 @@ router.get("/stats", async (req, res) => {
   }
 });
 
+// GET USER WISHLIST
+router.get("/:id/wishlist", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.status(200).json(user.wishlist);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 module.exports = router;

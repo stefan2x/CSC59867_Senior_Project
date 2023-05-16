@@ -65,18 +65,6 @@ const AppNameContainer = styled.div`
 `;
 
 const AppName = () => {
-    useEffect(() => {
-      const textElement = document.querySelector('.hero h1 span');
-      const text = textElement.textContent;
-      const characters = text.split('');
-  
-      let newText = '';
-      characters.forEach((char, index) => {
-        newText += `<span style="animation-delay: ${index * 100}ms">${char}</span>`;
-      });
-  
-      textElement.innerHTML = newText;
-    }, []);
   
     return (
       <AppNameContainer>

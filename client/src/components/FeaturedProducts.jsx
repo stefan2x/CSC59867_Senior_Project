@@ -99,14 +99,17 @@ const FeaturedProducts = () => {
   const carouselRef = useRef(null);
   // for featured products effect
   const carouselInterval = setInterval(() => {
-    carouselRef.current.scrollLeft += carouselRef.current.offsetWidth;
+    if (carouselRef.current !== null) {
+      carouselRef.current.scrollLeft += carouselRef.current.offsetWidth;
     if (
-    carouselRef.current.scrollLeft + carouselRef.current.offsetWidth >=
-    carouselRef.current.scrollWidth
-    ) {
-    carouselRef.current.scrollLeft = 0;
+        carouselRef.current.scrollLeft + carouselRef.current.offsetWidth >=
+        carouselRef.current.scrollWidth
+      ) {
+        carouselRef.current.scrollLeft = 0;
+      }
     }
-   }, 5000); // Adjust the interval duration as needed (in milliseconds)
+  }, 5000); // Adjust the interval duration as needed (in milliseconds)
+
 
   return (
     <FeaturedProductsContainer>
