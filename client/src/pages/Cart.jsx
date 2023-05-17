@@ -10,7 +10,8 @@ import { useEffect, useState } from "react";
 import { userRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-
+import { resetCart } from "../redux/cartRedux";
+import { useDispatch } from "react-redux";
 
 
 
@@ -165,6 +166,8 @@ const Button = styled.button`
 
 const Cart = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch(); // Add this line to import the useDispatch hook
+
 
   const [stripeToken, setStripeToken] = useState(null);
   const cart = useSelector((state) => state.cart);
@@ -185,8 +188,9 @@ const Cart = () => {
             products: cart,
           },
         });
+        dispatch(resetCart()); // Dispatch the resetCart action here
       } catch {}
-    };
+    };    
     stripeToken && makeRequest();
   }, [stripeToken, cart.total, navigate]);
 
@@ -254,8 +258,8 @@ const Cart = () => {
               <SummaryItemPrice>$ {total + 8.95 - 5}</SummaryItemPrice>
             </SummaryItem>
             <StripeCheckout
-              name="Lama Shop"
-              image="https://avatars.githubusercontent.com/u/1486366?v=4"
+              name="Wishlist Shop"
+              image="https://i.ibb.co/hK09KSg/unnamed.jpg"
               billingAddress
               shippingAddress
               description={`Your total is $${cart.total}`}
