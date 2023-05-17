@@ -1,6 +1,6 @@
 
 # WishList
-About the project:
+About the project: \
 Wishlist is a marketplace application with features found on social media.
 
 Users can create their own profiles that include significant dates and relevant holidays that apply to them.
