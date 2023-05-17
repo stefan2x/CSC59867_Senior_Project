@@ -1,14 +1,9 @@
 const User = require("../models/User");
-const {
-  verifyToken,
-  verifyTokenAndAuthorization,
-  verifyTokenAndAdmin,
-} = require("./verifyToken");
 
 const router = require("express").Router();
 
-//UPDATE
-router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
+// UPDATE
+router.put("/:id", async (req, res) => {
   if (req.body.password) {
     req.body.password = CryptoJS.AES.encrypt(
       req.body.password,
@@ -30,8 +25,8 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
   }
 });
 
-//DELETE
-router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
+// DELETE
+router.delete("/:id", async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
     res.status(200).json("User has been deleted...");
@@ -40,8 +35,8 @@ router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {
   }
 });
 
-//GET USER
-router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
+// GET USER
+router.get("/find/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
     const { password, ...others } = user._doc;
@@ -51,8 +46,8 @@ router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
-//GET ALL USER
-router.get("/", verifyTokenAndAdmin, async (req, res) => {
+// GET ALL USERS
+router.get("/", async (req, res) => {
   const query = req.query.new;
   try {
     const users = query
@@ -64,8 +59,8 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
-//GET USER STATS
-router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
+// GET USER STATS
+router.get("/stats", async (req, res) => {
   const date = new Date();
   const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
 
@@ -84,9 +79,56 @@ router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
         },
       },
     ]);
-    res.status(200).json(data)
+    res.status(200).json(data);
   } catch (err) {
     res.status(500).json(err);
   }
 });
-module.exports = router
+
+// GET USER WISHLIST
+router.get("/:id/wishlist", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.status(200).json(user.wishlist);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// ADD PRODUCT TO WISHLIST
+router.post("/:id/wishlist", async (req, res) => {
+  const productId = req.body.productId; // Assuming the product ID is sent in the request body
+  try {
+    const user = await User.findById(req.params.id);
+    user.wishlist.push(productId);
+    const updatedUser = await user.save();
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// ADD FRIEND TO FRIENDS LIST
+router.post("/:id/friends", async (req, res) => {
+  const friendId = req.body.friendId; // Assuming the friend's ID is sent in the request body
+  try {
+    const user = await User.findById(req.params.id);
+    user.friends.push(friendId);
+    const updatedUser = await user.save();
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// GET USER FRIENDS
+router.get("/:id/friends", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.status(200).json(user.friends);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+module.exports = router;

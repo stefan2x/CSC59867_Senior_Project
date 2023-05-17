@@ -7,12 +7,16 @@ const jwt = require("jsonwebtoken");
 //This will also hide the user password
 router.post("/register", async (req, res) => {
   const newUser = new User({
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
     username: req.body.username,
     email: req.body.email,
     password: CryptoJS.AES.encrypt(
       req.body.password,
       process.env.PASS_SEC
     ).toString(),
+    friends: [],
+    wishlist: [],
   });
 
   try {
@@ -22,6 +26,7 @@ router.post("/register", async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 
 //LOGIN
 router.post('/login', async (req, res) => {
