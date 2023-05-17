@@ -6,9 +6,11 @@ import styled from 'styled-components'
 import { mobile } from "../responsive";
 import { Avatar } from "@material-ui/core";
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
-// import { PersonAddOutlined } from "@material-ui/icons";
+import { PersonAddOutlined } from "@material-ui/icons";
 import ViewHeadlineIcon from '@material-ui/icons/ViewHeadline';
 import { Link } from "react-router-dom"
+import { useSelector } from "react-redux";
+
 
 
 const FriendContainer = styled.div`
@@ -71,6 +73,8 @@ const AddFriend = styled.div`
 
 const Friends = () =>{
   const [users,setUsers] = useState([])
+  const user = useSelector((state) => state.user.currentUser);
+
 
   //get all users
   useEffect(() => {
@@ -89,7 +93,7 @@ const Friends = () =>{
   const handleAddFriend = async (userId) => {
     try {
       // Make a request to add the friend
-      const response = await publicRequest.post(`/users/${userId}/friends`, {
+      const response = await publicRequest.post(`/users/${user._id}/friends`, {
         friendId: userId, //add the user as a friend by using their own ID
       });
       const updatedUser = response.data;
@@ -120,7 +124,7 @@ const Friends = () =>{
             </FriendDetail>
             <WishDetail>
               <WishContainer>
-                <Link to={`/profile/${user._id}/wishlist`}>
+                <Link to={`/profile/${user._id}`}>
                   <ViewWishes>
                     View wishlist
                     <ViewHeadlineIcon />
