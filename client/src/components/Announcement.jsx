@@ -12,7 +12,7 @@ const Container = styled.div`
 `;
 
 const Announcement = () => {
-  return <Container>New users can purchase a friend's gift FREE! Sign up today!</Container>;
+  return <Container>New users can get a $5 dollar discount! Sign up today!</Container>;
 };
 
 export default Announcement;

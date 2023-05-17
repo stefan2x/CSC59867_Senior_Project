@@ -5,6 +5,7 @@ import styled from "styled-components"
 import Navbar from "../components/Navbar";
 import { useSelector } from "react-redux";
 import { Redeem } from "@material-ui/icons";
+import Footer from "../components/Footer";
 
 
 import CardHeader from '@material-ui/core/CardHeader';
@@ -66,6 +67,7 @@ export default function Explore() {
           )
         })}
       </Grid>
+      <Footer/>
     </MainContainer>
   )
 }

@@ -10,7 +10,7 @@ import { PersonAddOutlined } from "@material-ui/icons";
 import ViewHeadlineIcon from '@material-ui/icons/ViewHeadline';
 import { Link } from "react-router-dom"
 import { useSelector } from "react-redux";
-
+import Footer from "../components/Footer";
 
 
 const FriendContainer = styled.div`
@@ -104,7 +104,12 @@ const Friends = () =>{
     }
   };
 
-  console.log(users)
+  //remove current user from friends
+  const index = users.indexOf(user)
+  const newUsersArray = users.splice(index, 1)
+
+
+ 
   return (
     <>
       <Navbar />
@@ -138,6 +143,7 @@ const Friends = () =>{
           </Friend>
         ))}
       </FriendContainer>
+      <Footer/>
     </>
   );  
 }  

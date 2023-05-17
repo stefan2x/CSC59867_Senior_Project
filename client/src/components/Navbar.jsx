@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { logout } from "../redux/userRedux";
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 const Container = styled.div`
   height: 60px;
@@ -90,10 +91,29 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <SearchContainer>
+          {/*<SearchContainer>
             <Input placeholder="Search" />
-            <Search style={{ color: "gray", fontSize: 16 }} />
-          </SearchContainer>
+            <Search style={{ color: "gray", fontSize: 16 }} /></SearchContainer>*/}
+            {currentUser ? (
+            <>
+              <Link to={`/profile/${currentUser._id}`}>
+                <MenuItem>
+                  <Badge badgeContent={quantity} color="primary">
+                    <Redeem/>
+                  </Badge>
+                </MenuItem>
+              </Link>
+              <Link to="/cart">
+                <MenuItem>
+                  <Badge badgeContent={quantity} color="primary">
+                    <ShoppingCartIcon/>
+                  </Badge>
+                </MenuItem>
+              </Link>
+            </>)
+            :
+            null
+          }
         </Left>
         <Center>
         <LinkWrapper to="/">
@@ -112,13 +132,6 @@ const Navbar = () => {
               <LinkWrapper to="/">
                 <MenuItem onClick={handleLogout}>LOG OUT</MenuItem>
               </LinkWrapper>
-              <Link to="/cart">
-              <MenuItem>
-                <Badge badgeContent={quantity} color="primary">
-                  <Redeem/>
-                </Badge>
-              </MenuItem>
-              </Link>
             </>
             ) : (
               <>

@@ -9,6 +9,10 @@ import StripeCheckout from "react-stripe-checkout";
 import { useEffect, useState } from "react";
 import { userRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+
+
+
 
 const KEY = process.env.REACT_APP_STRIPE;
 
@@ -54,6 +58,7 @@ const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
   ${mobile({ flexDirection: "column" })}
+
 `;
 
 const Info = styled.div`
@@ -116,8 +121,7 @@ const ProductAmount = styled.div`
 `;
 
 const ProductPrice = styled.div`
-  font-size: 30px;
-  font-weight: 200;
+  
   ${mobile({ marginBottom: "20px" })}
 `;
 
@@ -127,69 +131,7 @@ const Hr = styled.hr`
   height: 1px;
 `;
 
-
-const Cart = () => {
-  const cart = useSelector((state) => state.cart);
-  
-
-  return (
-    <Container>
-      <Navbar />
-      <Announcement />
-      <Wrapper>
-        <Title>YOUR BAG</Title>
-        <Top>
-          <TopButton>*IMG* First Last</TopButton>
-          <TopTexts>
-            <TopText>Your Wishlist (0)</TopText>
-          </TopTexts>
-          <TopButton type="filled">VIEW FRIENDS</TopButton>
-        </Top>
-        <Bottom>
-          <Info>
-            {cart.products.map((product) => (
-              <Product>
-                <ProductDetail>
-                  <Image src={product.img} />
-                  <Details>
-                    <ProductName>
-                      <b>Product:</b> {product.title}
-                    </ProductName>
-                    <ProductId>
-                      <b>ID:</b> {product._id}
-                    </ProductId>
-                    <ProductColor color={product.color} />
-                    <ProductSize>
-                      <b>Size:</b> {product.size}
-                    </ProductSize>
-                  </Details>
-                </ProductDetail>
-                <PriceDetail>
-                  <ProductAmountContainer>
-                    <Add />
-                    <ProductAmount>{product.quantity}</ProductAmount>
-                    <Remove />
-                  </ProductAmountContainer>
-                  <ProductPrice>
-                    $ {product.price * product.quantity}
-                  </ProductPrice>
-                </PriceDetail>
-              </Product>
-            ))}
-            <Hr />
-          </Info>
-          
-        </Bottom>
-      </Wrapper>
-    </Container>
-  );
-};
-
-export default Cart;
-
-
-/**
- * const Summary = styled.div`
+const Summary = styled.div`
   flex: 1;
   border: 0.5px solid lightgray;
   border-radius: 10px;
@@ -221,27 +163,11 @@ const Button = styled.button`
   font-weight: 600;
 `;
 
- * 
- * 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- * const [stripeToken, setStripeToken] = useState(null);
+const Cart = () => {
   const navigate = useNavigate();
 
+  const [stripeToken, setStripeToken] = useState(null);
+  const cart = useSelector((state) => state.cart);
   const onToken = (token) => {
     setStripeToken(token);
   };
@@ -259,35 +185,73 @@ const Button = styled.button`
             products: cart,
           },
         });
-      } catch (error) {
-        console.log(error);
-      }
+      } catch {}
     };
-
     stripeToken && makeRequest();
   }, [stripeToken, cart.total, navigate]);
- * 
- * 
- * 
- * 
- * 
- * <Summary>
+
+  console.log(cart)
+  //grab total price
+  let total = 0
+  for (let i = 0; i < cart.products.length; i++){
+    total += cart.products[i].price
+  }
+  return (
+    <Container>
+      <Navbar />
+      <Announcement />
+      <Wrapper>
+        <Title>YOUR CART</Title>
+        <Top>
+          <TopTexts>
+            <TopText></TopText>
+            <TopText></TopText>
+          </TopTexts>
+          <TopButton type="filled">CHECKOUT NOW</TopButton>
+        </Top>
+        <Bottom>
+        <Info>
+            {cart.products.map((product) => (
+              <Product>
+                <ProductDetail>
+                  <Image src={product.img} />
+                  <Details>
+                    <ProductName>
+                      <b>Product:</b> {product.title}
+                    </ProductName>
+                    <ProductColor color={product.color} />
+                    <ProductPrice>
+                      <b>Price:</b>$ {product.price * product.quantity}
+                    </ProductPrice>
+                  </Details>
+                </ProductDetail>
+                <PriceDetail>
+                  <ProductAmountContainer>
+                    <DeleteForeverIcon/>
+                  </ProductAmountContainer>
+                </PriceDetail>
+              </Product>
+            ))}
+            <Hr />
+          </Info>
+
+          <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+              <SummaryItemPrice>{total}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
-              <SummaryItemPrice>$ 5.90</SummaryItemPrice>
+              <SummaryItemPrice>$ 8.95</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Shipping Discount</SummaryItemText>
-              <SummaryItemPrice>$ -5.90</SummaryItemPrice>
+              <SummaryItemPrice>$ 5.00</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$ {cart.total}</SummaryItemPrice>
+              <SummaryItemPrice>$ {total + 8.95 - 5}</SummaryItemPrice>
             </SummaryItem>
             <StripeCheckout
               name="Lama Shop"
@@ -297,9 +261,18 @@ const Button = styled.button`
               description={`Your total is $${cart.total}`}
               amount={cart.total * 100}
               token={onToken}
-              // stripeKey="pk_test_51N7E8BLviwZsSHm3HvpEdRBIC0xb2pzgOfNV35Yl0AcFVPIma7EMwKFRoPGMSrBRPpT7OiwFNaJtPLP0sRRB4yq300nl8v6YXg"
               stripeKey={KEY}
             >
               <Button>CHECKOUT NOW</Button>
             </StripeCheckout>
-          </Summary> */
+           
+          </Summary>
+        </Bottom>
+      </Wrapper>
+      <Footer />
+    </Container>
+  );
+};
+
+export default Cart;
+
