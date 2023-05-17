@@ -14,7 +14,7 @@ const Home = () => {
       <Announcement />
       <Navbar />
       <AppName />
-      <Slider />
+     
       <Categories />
       <FeaturedProducts />
       <Newsletter/>

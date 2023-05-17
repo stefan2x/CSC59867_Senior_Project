@@ -98,7 +98,7 @@ const Navbar = () => {
             <>
               <Link to={`/profile/${currentUser._id}`}>
                 <MenuItem>
-                  <Badge badgeContent={quantity} color="primary">
+                  <Badge  color="primary">
                     <Redeem/>
                   </Badge>
                 </MenuItem>

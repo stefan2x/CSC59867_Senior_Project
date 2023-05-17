@@ -162,7 +162,7 @@ const Product = () => {
           <Image src={product.img} />
         </ImgContainer>
         <InfoContainer>
-          <Title>Denim Jumpsuit</Title>
+          <Title>{product.title}</Title>
           <Desc> {product.desc} </Desc>
           <Price>$ {product.price}</Price>
           <FilterContainer>

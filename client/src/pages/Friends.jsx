@@ -120,10 +120,13 @@ const Friends = () =>{
               <Avatar />
               <Details>
                 <div>
-                  <b>Product:</b> {user.firstname}
+                  <b>User Name:</b> {user.username}
                 </div>
                 <div>
-                  <b>Size:</b> {user.lastname}
+                  <b>First Name:</b> {user.firstname}
+                </div>
+                <div>
+                  <b>Last Name:</b> {user.lastname}
                 </div>
               </Details>
             </FriendDetail>
