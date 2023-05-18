@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import axios from "axios";
+import Navbar from "../components/Navbar";
 
 const Container = styled.div`
   width: 100vw;
@@ -82,6 +83,8 @@ const Register = () => {
   };
 
   return (
+    <div>
+    <Navbar />
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
@@ -115,6 +118,7 @@ const Register = () => {
         </Form>
       </Wrapper>
     </Container>
+    </div>
   );
 };
 

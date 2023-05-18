@@ -1,5 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const FeaturedProductsContainer = styled.section`
   display: flex;
@@ -95,20 +96,71 @@ const FeaturedProductsContainer = styled.section`
   }
 `;
 
+const products = [
+  {
+    _id: 1,
+    name: 'Nike T-Shirt',
+    desc: 'Nike mens Classic',
+    img: 'https://m.media-amazon.com/images/I/51RrSg2H3rL._AC_UY550_.jpg',
+  },
+  {
+    _id: 2,
+    name: 'Mens Casual Premium Slim Fit T-Shirts ',
+    desc: 'Slim-fitting style, contrast raglan long sleeve, three-button henley placket, light weight & soft fabric for breathable and comfortable wearing. And Solid stitched shirts with round neck made for durability and a great fit for casual fashion wear and diehard baseball fans. The Henley style round neckline includes a three-button placket.',
+    img: 'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg',
+  },
+  {
+    _id: 3,
+    name: 'Mens Cotton Jacket',
+    desc: 'great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.',
+    img: 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg',
+  },
+  {
+    _id: 4,
+    name: 'Mens Casual Slim Fit',
+    desc: 'The color could be slightly different between on the screen and in practice. / Please note that body builds vary by person, therefore, detailed size information should be reviewed below on the product description.',
+    img: 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg',
+  },
+];
+
 const FeaturedProducts = () => {
   const carouselRef = useRef(null);
+  
+  // const [products, setProducts] = useState([]); // State to hold the fetched products
+
+  // useEffect(() => {
+  //   const fetchProducts = async () => {
+  //     try {
+  //       const response = await axios.get('http://localhost:5000/api/products');
+  //       setProducts(response.data.slice(0, 6)); // Slice the array to include only the first 6 products
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+
+  //   fetchProducts();
+  // }, []);
+
   // for featured products effect
-  const carouselInterval = setInterval(() => {
-    if (carouselRef.current !== null) {
-      carouselRef.current.scrollLeft += carouselRef.current.offsetWidth;
-    if (
-        carouselRef.current.scrollLeft + carouselRef.current.offsetWidth >=
-        carouselRef.current.scrollWidth
-      ) {
-        carouselRef.current.scrollLeft = 0;
+  useEffect(() => {
+    const carouselInterval = setInterval(() => {
+      if (carouselRef.current !== null) {
+        carouselRef.current.scrollLeft += carouselRef.current.offsetWidth;
+        
+        if (
+          carouselRef.current.scrollLeft + carouselRef.current.offsetWidth >=
+          carouselRef.current.scrollWidth
+        ) {
+          carouselRef.current.scrollLeft = 0;
+        }
       }
-    }
-  }, 5000); // Adjust the interval duration as needed (in milliseconds)
+    }, 5000);
+
+    return () => {
+      clearInterval(carouselInterval); // Clear the interval when the component is unmounted
+    };
+  }, []);
+
 
 
   return (
@@ -119,70 +171,20 @@ const FeaturedProducts = () => {
           <img src="" alt="" />
         </div>
         <div className="carousel" ref={carouselRef}>
-          <div className="card">
-            <div className="box">
-              <img
-                src="https://i.ebayimg.com/images/g/jMQAAOSwQLBj5Fn~/s-l500.jpg"
-                alt="Adjika Spicy Sauce"
-              />
-              <div className="text">Apple AirPods</div>
-              <p>True wireless earbuds with seamless connectivity.</p>
+          {products.map((product) => (
+            <div className="card" key={product._id}>
+              <div className="box">
+                <img src={product.img} alt={product.title} />
+                <div className="text">{product.name}</div>
+                <p>{product.desc}</p>
+              </div>
             </div>
-          </div>
-          <div className="card">
-            <div className="box">
-              <img
-                src="https://i.ebayimg.com/images/g/~WQAAOSwXYhkLRAG/s-l500.jpg"
-                alt="Adjika Spicy Sauce"
-              />
-              <div className="text">Nintendo Switch</div>
-              <p>Unlock the endless possibilities of gaming with the Nintendo Switch.</p>
-            </div>
-          </div>
-          <div className="card">
-            <div className="box">
-              <img
-                src="https://i.ebayimg.com/images/g/jMQAAOSwQLBj5Fn~/s-l500.jpg"
-                alt="Adjika Spicy Sauce"
-              />
-              <div className="text">Apple AirPods</div>
-              <p>True wireless earbuds with seamless connectivity.</p>
-            </div>
-          </div>
-          <div className="card">
-            <div className="box">
-              <img
-                src="https://i.ebayimg.com/images/g/jMQAAOSwQLBj5Fn~/s-l500.jpg"
-                alt="Adjika Spicy Sauce"
-              />
-              <div className="text">Apple AirPods</div>
-              <p>True wireless earbuds with seamless connectivity.</p>
-            </div>
-          </div>
-          <div className="card">
-            <div className="box">
-              <img
-                src="https://i.ebayimg.com/images/g/jMQAAOSwQLBj5Fn~/s-l500.jpg"
-                alt="Adjika Spicy Sauce"
-              />
-              <div className="text">Apple AirPods</div>
-              <p>True wireless earbuds with seamless connectivity.</p>
-            </div>
-          </div>
-          <div className="card">
-            <div className="box">
-              <img
-                src="https://i.ebayimg.com/images/g/jMQAAOSwQLBj5Fn~/s-l500.jpg"
-                alt="Adjika Spicy Sauce"
-              />
-              <div className="text">Apple AirPods</div>
-              <p>True wireless earbuds with seamless connectivity.</p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </FeaturedProductsContainer>
   );
-};  
+};
+
 
 export default FeaturedProducts;

@@ -91,7 +91,7 @@ export default function Profile() {
   return (
     <Wrapper>
       <Navbar />
-      <UserInfo name={user.firstname} bio={user.lastname} />
+      <UserInfo name={user.firstname +" "+ user.lastname} bio={" "} />
       <h1>{user.firstname}'s  WishList</h1>
       <WishList products={wishlistProducts} />
       <h1>{user.firstname}'s  Friends</h1>

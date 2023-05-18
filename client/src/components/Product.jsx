@@ -80,21 +80,6 @@ const Product = ({ item }) => {
 
   console.log("HI:" +user._id)
 
-  // //get all the current user
-  // useEffect(() => {
-  //   const getUsers = async () => {
-  //       try{
-  //           const res = await publicRequest.get("/users" );
-  //           setUsers(res.data);
-  //       } catch(err) {
-  //           console.log(err)
-  //       }};
-
-  //   getUsers();
-  // } , []);
-
-  // console.log(users)
-
   // Function to handle adding/removing from wishlist
   const handleWishlistClick = async () => {
     try {

@@ -1,7 +1,6 @@
 const router = require("express").Router();
 //for some reason it only works when i add the key here!!
-// const KEY = process.env.STRIPE_KEY
-const KEY = "sk_test_51N7E8BLviwZsSHm3fuBrKXJmarca69ahDE0xlbdjwBp5brZFtiFYn6Epfm4uGSGCSw7V4nqvFPtoi4RIWjcY0lla00oCb6A73B"
+const KEY = process.env.STRIPE_KEY
 const stripe = require("stripe")(KEY);
 
 router.post("/payment", (req, res) => {

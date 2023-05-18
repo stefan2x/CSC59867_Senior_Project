@@ -75,7 +75,7 @@ const AppName = () => {
               Find the perfect gift for your loved ones and bring joy to their
               lives with WishList.
             </p>
-            <Link to="/login"><button className="cta">Shop Now</button></Link>
+            <Link to="/products"><button className="cta">Shop Now</button></Link>
           </div>
         </section>
       </AppNameContainer>
