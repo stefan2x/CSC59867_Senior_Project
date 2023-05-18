@@ -25,21 +25,60 @@ export const sliderItems = [
   export const categories = [
     {
       id: 1,
-      img: "https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      title: "SHIRT STYLE!",
-      cat: "woman",
+      img: "https://kevsbest.com/wp-content/uploads/2022/07/Best-Mens-Clothing-in-Tampa-FL.jpg",
+      title: "Men's Clothing!",
+      cat: "Men's Clothing",
     },
     {
       id: 2,
       img: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      title: "LOUNGEWEAR LOVE",
-      cat: "coat",
+      title: "Women's Clothing!",
+      cat: "Women's Clothing",
     },
     {
       id: 3,
-      img: "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-      title: "LIGHT JACKETS",
-      cat: "jacket",
+      img: "https://images.pexels.com/photos/14072961/pexels-photo-14072961.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      title: "Jewelery!",
+      cat: "Jewelery",
+    },
+  ];
+
+  export const mainCategories = [
+    {
+      id: 1,
+      img: "https://kevsbest.com/wp-content/uploads/2022/07/Best-Mens-Clothing-in-Tampa-FL.jpg",
+      title: "Men's Clothing!",
+      cat: "Men's Clothing",
+    },
+    {
+      id: 2,
+      img: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      title: "Women's Clothing!",
+      cat: "Women's Clothing",
+    },
+    {
+      id: 3,
+      img: "https://images.pexels.com/photos/325153/pexels-photo-325153.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      title: "Electronics!",
+      cat: "Electronics",
+    },
+    {
+      id: 4,
+      img: "https://images.pexels.com/photos/14072961/pexels-photo-14072961.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      title: "Jewelery!",
+      cat: "Jewelery",
+    },
+    {
+      id: 5,
+      img: "https://images.pexels.com/photos/354103/pexels-photo-354103.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      title: "Accessories!",
+      cat: "Accessories",
+    },
+    {
+      id: 6,
+      img: "https://images.pexels.com/photos/57750/pexels-photo-57750.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      title: "Miscellaneous!",
+      cat: "Miscellaneous",
     },
   ];
 
