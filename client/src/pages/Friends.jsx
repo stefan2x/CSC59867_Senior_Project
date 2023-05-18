@@ -140,7 +140,7 @@ const Friends = () =>{
                 </Link>
               </WishContainer>
               <AddFriend onClick={() => handleAddFriend(user._id)}>
-                <PersonAddIcon />
+                <Link><PersonAddIcon /></Link>
               </AddFriend>
             </WishDetail>
           </Friend>
