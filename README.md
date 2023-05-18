@@ -3,7 +3,7 @@
 About the project: \
 Wishlist is a marketplace application with features found on social media.
 
-Users can create their own profiles that include significant dates and relevant holidays that apply to them.
+
 
 Users can a registry for various kinds of items from book, clothes, electronics, etc; this will act as a repository for users where other users in the application can view items, reserve items, and buy items for other users.
 
